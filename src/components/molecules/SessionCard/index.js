@@ -44,6 +44,12 @@ const SessionCard = ({ session, index, initSession, dragStart, dragEnter, drop }
         localStorage.setItem('session_collection', JSON.stringify(currentSession))
     }
 
+    const handleEditEnter = (event) => {
+        if (event.key === 'Enter') {
+            handleEditToggle()
+        }
+      };
+
     const addMaterial = () => {
         const newMaterial = [ ...currentSession[index].materials, { name: `Video Title ${Math.floor(Math.random() * 100)}`, created_at: new Date().toLocaleDateString() }]
         
@@ -89,7 +95,7 @@ const SessionCard = ({ session, index, initSession, dragStart, dragEnter, drop }
                     <SessionInfo>
                         <FontAwesomeIcon icon={faGripVertical} style={{ marginRight: '12px', color: '#BCC0D0' }} />
                         {isEdit ? (
-                            <input type="text" placeholder="Session name...." value={nameValue} onChange={handleChangeName} />
+                            <input type="text" placeholder="Session name...." value={nameValue} onChange={handleChangeName} onKeyDown={handleEditEnter} />
                         ) : (
                             <p>{session.name}</p>
                         )}
